@@ -1,0 +1,22 @@
+trigger:
+- main  # o la rama donde haces los commits
+ 
+pool:
+  name: 'CORP-WEBARR-QA'  # cambia si tu agente tiene otro nombre
+ 
+steps:
+- script: |
+    echo "Iniciando despliegue de prueba..."
+    echo "Código descargado en: $(Build.SourcesDirectory)"
+    ls -la $(Build.SourcesDirectory)
+  displayName: "Listar archivos descargados del repositorio"
+ 
+- script: |
+    echo "Creando carpeta temporal si no existe..."
+    mkdir -p /home/cyberusr01/devops_test
+ 
+    echo "Copiando archivos a /home/cyberusr01/devops_test ..."
+    cp -r $(Build.SourcesDirectory)/* /home/cyberusr01/devops_test
+ 
+    echo "Archivos copiados correctamente."
+  displayName: "Copiar archivos a carpeta temporal"
